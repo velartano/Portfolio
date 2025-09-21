@@ -180,7 +180,7 @@ html, body {
 .profile-image {
   width: clamp(100px, 15vw, 150px);
   height: clamp(100px, 15vw, 150px);
-  border-radius: 50%;
+  border-radius: 12px;
   border: clamp(2px, 0.5vw, 4px) solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
