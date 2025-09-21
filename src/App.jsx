@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import {
   Github,
   Linkedin,
@@ -175,23 +175,24 @@ function App() {
         </div>
 
         {/* Menu mobile */}
-        <motion.div
-          className="mobile-menu"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{
-            opacity: isMobileMenuOpen ? 1 : 0,
-            y: isMobileMenuOpen ? 0 : -20,
-            display: isMobileMenuOpen ? 'block' : 'none'
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          <a href="#home" onClick={() => setIsMobileMenuOpen(false)}>Accueil</a>
-          <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>À propos</a>
-          <a href="#skills" onClick={() => setIsMobileMenuOpen(false)}>Compétences</a>
-          <a href="#projects" onClick={() => setIsMobileMenuOpen(false)}>Projets</a>
-          <a href="#experience" onClick={() => setIsMobileMenuOpen(false)}>Expérience</a>
-          <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
-        </motion.div>
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              className="mobile-menu"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <a href="#home" onClick={() => setIsMobileMenuOpen(false)}>Accueil</a>
+              <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>À propos</a>
+              <a href="#skills" onClick={() => setIsMobileMenuOpen(false)}>Compétences</a>
+              <a href="#projects" onClick={() => setIsMobileMenuOpen(false)}>Projets</a>
+              <a href="#experience" onClick={() => setIsMobileMenuOpen(false)}>Expérience</a>
+              <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Hero Section */}
