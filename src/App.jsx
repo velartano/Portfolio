@@ -15,7 +15,9 @@ import {
   FileSpreadsheet,
   TrendingUp,
   Zap,
-  Activity
+  Activity,
+  Menu,
+  X
 } from 'lucide-react'
 import './App.css'
 
@@ -55,6 +57,30 @@ function CountingNumber({ end, duration = 2000, suffix = "" }) {
 
 function App() {
   const [activeSection, setActiveSection] = useState('home')
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  // Fermer le menu mobile quand on clique en dehors ou scroll
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMobileMenuOpen && !event.target.closest('.navbar')) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    const handleScroll = () => {
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isMobileMenuOpen])
 
   const skills = [
     { name: 'SAS Guide', level: 'Expert', icon: Activity },
@@ -127,6 +153,8 @@ function App() {
       <nav className="navbar">
         <div className="nav-container">
           <div className="nav-logo">Vélar TANO</div>
+
+          {/* Menu desktop */}
           <div className="nav-links">
             <a href="#home" onClick={() => setActiveSection('home')}>Accueil</a>
             <a href="#about" onClick={() => setActiveSection('about')}>À propos</a>
@@ -135,7 +163,35 @@ function App() {
             <a href="#experience" onClick={() => setActiveSection('experience')}>Expérience</a>
             <a href="#contact" onClick={() => setActiveSection('contact')}>Contact</a>
           </div>
+
+          {/* Bouton menu mobile */}
+          <button
+            className="mobile-menu-btn"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Menu"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Menu mobile */}
+        <motion.div
+          className="mobile-menu"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{
+            opacity: isMobileMenuOpen ? 1 : 0,
+            y: isMobileMenuOpen ? 0 : -20,
+            display: isMobileMenuOpen ? 'block' : 'none'
+          }}
+          transition={{ duration: 0.3 }}
+        >
+          <a href="#home" onClick={() => setIsMobileMenuOpen(false)}>Accueil</a>
+          <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>À propos</a>
+          <a href="#skills" onClick={() => setIsMobileMenuOpen(false)}>Compétences</a>
+          <a href="#projects" onClick={() => setIsMobileMenuOpen(false)}>Projets</a>
+          <a href="#experience" onClick={() => setIsMobileMenuOpen(false)}>Expérience</a>
+          <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
+        </motion.div>
       </nav>
 
       {/* Hero Section */}
@@ -167,7 +223,7 @@ function App() {
             
           </p>
           <div className="hero-buttons">
-            <a href="/VELAR_TANO_DATA_ANALYST_UP.pdf" download="VELAR_TANO_DATA_ANALYST_UP.pdf" className="btn-primary">
+            <a href="/CV_ANALYSTE_DE_DONNEE_VELAR_TANO.pdf" download="CV_ANALYSTE_DE_DONNEE_VELAR_TANO.pdf" className="btn-primary">
               <Download size={20} />
               Télécharger CV
             </a>
