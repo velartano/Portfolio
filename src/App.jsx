@@ -213,7 +213,7 @@ function App() {
             </div>
             <div className="hero-text">
               <h1 className="hero-title">
-                Vélar TANO
+                Vélar François TANO
                 <span className="hero-subtitle">Junior Data Scientist & Analyst</span>
               </h1>
             </div>

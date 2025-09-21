@@ -97,15 +97,16 @@ html, body {
   display: none;
   background: none;
   border: none;
-  color: white;
+  color: #333;
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 4px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .mobile-menu-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #667eea;
 }
 
 .mobile-menu {
